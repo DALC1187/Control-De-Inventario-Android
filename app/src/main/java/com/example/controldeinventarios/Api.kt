@@ -1,5 +1,6 @@
 package com.example.controldeinventarios
 
+import com.example.controldeinventarios.models.Articulos
 import com.example.controldeinventarios.models.Login
 import com.example.controldeinventarios.models.Usuarios
 import io.reactivex.Observable
@@ -54,5 +55,43 @@ interface Api {
     fun eliminarUsuarios(
         @Header("Authorization") token: String,
         @Path("usuarioid") usuarioid: String
+    ): Observable<Any>
+
+    @GET("articulos")
+    fun obtenerArticulos(
+        @Header("Authorization") token: String,
+    ): Observable<List<Articulos>>
+
+    @FormUrlEncoded
+    @POST("articulos")
+    fun guardarArticulos(
+        @Header("Authorization") token: String,
+        @Field("nombre") nombre: String,
+        @Field("costoPieza") costoPieza: Double,
+        @Field("numPiezaPaquete") numPiezaPaquete: Int,
+        @Field("stockInicial") stockInicial: Int,
+    ): Observable<Any>
+
+    @FormUrlEncoded
+    @PUT("articulos/{articulosid}")
+    fun actualizarArticulos(
+        @Header("Authorization") token: String,
+        @Path("articulosid") usuarioid: String,
+        @Field("nombre") nombre: String,
+        @Field("costoPieza") costoPieza: Double,
+        @Field("numPiezaPaquete") numPiezaPaquete: Int,
+        @Field("stockInicial") stockInicial: Int,
+    ): Observable<Any>
+
+    @GET("articulos/{articulosid}")
+    fun detalleArticulos(
+        @Header("Authorization") token: String,
+        @Path("articulosid") usuarioid: String
+    ): Observable<Articulos>
+
+    @DELETE("articulos/{articulosid}")
+    fun eliminarArticulos(
+        @Header("Authorization") token: String,
+        @Path("articulosid") usuarioid: String
     ): Observable<Any>
 }

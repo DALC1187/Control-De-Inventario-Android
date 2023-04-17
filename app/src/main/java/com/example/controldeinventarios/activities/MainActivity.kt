@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.eUsuario.setText("administrador@gmail.com")
-        binding.eContrasena.setText("secret")
+        binding.eContrasena.setText("123456")
 
         binding.bIniciar.setOnClickListener {
             api.login(binding.eUsuario.text.toString(), binding.eContrasena.text.toString())
