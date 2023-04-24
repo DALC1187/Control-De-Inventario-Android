@@ -5,5 +5,6 @@ data class Articulos (
     var nombre: String,
     var costoPieza: Double,
     var numPiezaPaquete: Int,
-    var stockInicial: Int
+    var stockInicial: Int,
+    var clasificacion: String
 )

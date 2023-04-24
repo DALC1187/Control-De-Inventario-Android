@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AgregarArticuloActivity">
+    tools:context=".activities.EditarPromocionesActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,51 +30,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Costo x pieza"/>
+                android:text="Descripción" />
             <EditText
-                android:id="@+id/etCostoPieza"
+                android:id="@+id/eDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="# de piezas por paquete"/>
+                android:text="Vigencia" />
             <EditText
-                android:id="@+id/etPiezasPorPaquete"
+                android:id="@+id/eVigencia"
                 android:layout_width="match_parent"
+                android:allowClickWhenDisabled="true"
+                android:editable="false"
                 android:layout_height="wrap_content"
                 android:text=""/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Stock inicial"/>
-            <EditText
-                android:id="@+id/etStockInicial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Clasificación"/>
-            <Spinner
-                android:id="@+id/sClasificacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+
             <Button
-                android:id="@+id/bGuardar"
+                android:id="@+id/bActualizar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
-                android:text="Guardar"/>
+                android:text="Actualizar"/>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

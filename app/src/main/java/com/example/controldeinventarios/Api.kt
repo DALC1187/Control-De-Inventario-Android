@@ -2,6 +2,7 @@ package com.example.controldeinventarios
 
 import com.example.controldeinventarios.models.Articulos
 import com.example.controldeinventarios.models.Login
+import com.example.controldeinventarios.models.Promociones
 import com.example.controldeinventarios.models.Usuarios
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -63,6 +64,13 @@ interface Api {
     ): Observable<List<Articulos>>
 
     @FormUrlEncoded
+    @POST("articulos/buscador")
+    fun buscadorArticulos(
+        @Header("Authorization") token: String,
+        @Field("texto") text: String,
+    ): Observable<List<Articulos>>
+
+    @FormUrlEncoded
     @POST("articulos")
     fun guardarArticulos(
         @Header("Authorization") token: String,
@@ -70,6 +78,7 @@ interface Api {
         @Field("costoPieza") costoPieza: Double,
         @Field("numPiezaPaquete") numPiezaPaquete: Int,
         @Field("stockInicial") stockInicial: Int,
+        @Field("clasificacion") clasificacion: String,
     ): Observable<Any>
 
     @FormUrlEncoded
@@ -81,6 +90,7 @@ interface Api {
         @Field("costoPieza") costoPieza: Double,
         @Field("numPiezaPaquete") numPiezaPaquete: Int,
         @Field("stockInicial") stockInicial: Int,
+        @Field("clasificacion") clasificacion: String,
     ): Observable<Any>
 
     @GET("articulos/{articulosid}")
@@ -93,5 +103,54 @@ interface Api {
     fun eliminarArticulos(
         @Header("Authorization") token: String,
         @Path("articulosid") usuarioid: String
+    ): Observable<Any>
+
+    @GET("promociones")
+    fun obtenerPromociones(
+        @Header("Authorization") token: String,
+    ): Observable<List<Promociones>>
+
+    @FormUrlEncoded
+    @POST("promociones")
+    fun guardarPromociones(
+        @Header("Authorization") token: String,
+        @Field("nombre") nombre: String,
+        @Field("descripcion") descripcion: String,
+        @Field("vigencia") vigencia: String,
+    ): Observable<Any>
+
+    @FormUrlEncoded
+    @PUT("promociones/{promocionesid}")
+    fun actualizarPromociones(
+        @Header("Authorization") token: String,
+        @Path("promocionesid") usuarioid: String,
+        @Field("nombre") nombre: String,
+        @Field("descripcion") descripcion: String,
+        @Field("vigencia") vigenciaini: String
+    ): Observable<Any>
+
+    @GET("promociones/{promocionesid}")
+    fun detallePromociones(
+        @Header("Authorization") token: String,
+        @Path("promocionesid") usuarioid: String
+    ): Observable<Promociones>
+
+    @DELETE("promociones/{promocionesid}")
+    fun eliminarPromociones(
+        @Header("Authorization") token: String,
+        @Path("promocionesid") usuarioid: String
+    ): Observable<Any>
+
+
+    @FormUrlEncoded
+    @POST("siniestros")
+    fun guardarSiniestro(
+        @Header("Authorization") token: String,
+        @Field("fecha") fecha: String,
+        @Field("hora") hora: String,
+        @Field("descripcion") descripcion: String,
+        @Field("tipo") tipo: String,
+        @Field("hoja_ministro") hoja_ministro: String,
+        @Field("hora_supervisor") hora_supervisor: String,
     ): Observable<Any>
 }

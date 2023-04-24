@@ -75,11 +75,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Tipo de usuario"/>
-            <EditText
-                android:id="@+id/etTipoDeUsuario"
+            <Spinner
+                android:id="@+id/sTipoDeUsuario"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
+                android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/bGuardar"
                 android:layout_width="match_parent"

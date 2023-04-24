@@ -51,6 +51,14 @@ class UsuarioActivity : AppCompatActivity() {
             val activity= Intent(this, ArticulosActivity::class.java)
             startActivity(activity)
             }
+            R.id.promociones -> {
+                val activity= Intent(this, PromopcionesActivity::class.java)
+                startActivity(activity)
+            }
+            R.id.siniestros -> {
+                val activity= Intent(this, AgregarSiniestrosActivity::class.java)
+                startActivity(activity)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

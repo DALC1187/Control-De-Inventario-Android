@@ -1,7 +1,11 @@
 package com.example.controldeinventarios.activities
 
+import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ActivityEditarArticuloBinding
 import com.example.controldeinventarios.models.Articulos
@@ -13,6 +17,8 @@ import io.reactivex.schedulers.Schedulers
 class EditarArticuloActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditarArticuloBinding
 var articuloid = 0L
+    private lateinit var spinner: Spinner
+    val clasificacion = arrayOf<String?>("Normal", "Mas vendido", "Menos vendido")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditarArticuloBinding.inflate(layoutInflater)
@@ -20,6 +26,11 @@ var articuloid = 0L
         val actionBar = supportActionBar
         actionBar!!.setTitle("Editar Articulo")
         articuloid = intent.getLongExtra("articuloID", 0L)
+        spinner = binding.sClasificacion
+        val adapter: ArrayAdapter<*> =
+            ArrayAdapter<Any?>(this@EditarArticuloActivity, R.layout.simple_spinner_item, clasificacion)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
         api.detalleArticulos("Bearer "+ preferencesHelper.tokenApi!!,articuloid.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
@@ -29,6 +40,7 @@ var articuloid = 0L
                     binding.etCostoPieza.setText(articulosResponse.costoPieza.toString())
                     binding.etPiezasPorPaquete.setText(articulosResponse.numPiezaPaquete.toString())
                     binding.etStockInicial.setText(articulosResponse.stockInicial.toString())
+                    spinner.setSelection(clasificacion.indexOfFirst { it == articulosResponse.clasificacion })
                 }
                 override fun onError(e: Throwable) {}
                 override fun onComplete() {}
@@ -41,12 +53,15 @@ var articuloid = 0L
                 binding.etNombre.text.toString(),
                 binding.etCostoPieza.text.toString().toDouble(),
                 binding.etPiezasPorPaquete.text.toString().toInt(),
-                binding.etStockInicial.text.toString().toInt()
+                binding.etStockInicial.text.toString().toInt(),
+                spinner.selectedItem.toString(),
             )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {}
+                    override fun onNext(genericResponse: Any) {
+                        Toast.makeText(this@EditarArticuloActivity, "Articulo actualizado correctamente", Toast.LENGTH_SHORT).show()
+                    }
                     override fun onError(e: Throwable) {}
                     override fun onComplete() {}
                 })

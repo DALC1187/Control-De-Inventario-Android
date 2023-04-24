@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe(object : ResourceObserver<Login>() {
                 override fun onNext(t: Login) {
                     preferencesHelper.tokenApi = t.token
-                    val intent = Intent(this@MainActivity, UsuarioActivity::class.java)
+                    val intent = Intent(this@MainActivity, ArticulosActivity::class.java)
                     startActivity(intent)
                 } override fun onError(e: Throwable) {}override fun onComplete() {}
             })

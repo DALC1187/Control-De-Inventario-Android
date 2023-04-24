@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AgregarArticuloActivity">
+    tools:context=".activities.AgregarSiniestrosActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:paddingBottom="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,55 +19,97 @@
             android:orientation="vertical"
             android:padding="20dp"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Nombre"/>
-            <EditText
-                android:id="@+id/etNombre"
+                android:text="Hoja de siniestro otorgada por el ministerio publico" />
+
+            <ImageView
+                android:id="@+id/iMMinisterio"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"/>
+
+            <ImageButton
+                android:id="@+id/iBMinisterio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_photo_camera_24"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Hoja de siniestro otorgada por el supervisor" />
+
+            <ImageView
+                android:id="@+id/iMSupervisor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:id="@+id/iBSupervisor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_photo_camera_24"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Fecha del siniestro" />
+            <EditText
+                android:id="@+id/eFechaSiniestro"
+                android:layout_width="match_parent"
+                android:allowClickWhenDisabled="true"
+                android:editable="false"
                 android:layout_height="wrap_content"
                 android:text=""/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Costo x pieza"/>
+                android:text="Hora del siniestro" />
             <EditText
-                android:id="@+id/etCostoPieza"
+                android:id="@+id/eHoraSiniestro"
                 android:layout_width="match_parent"
+                android:allowClickWhenDisabled="true"
+                android:editable="false"
                 android:layout_height="wrap_content"
                 android:text=""/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="# de piezas por paquete"/>
-            <EditText
-                android:id="@+id/etPiezasPorPaquete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Stock inicial"/>
-            <EditText
-                android:id="@+id/etStockInicial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Clasificación"/>
+                android:text="¿Tipo de siniestro?"/>
+
             <Spinner
-                android:id="@+id/sClasificacion"
+                android:id="@+id/sTipoDeSiniestro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Descripción" />
+            <EditText
+                android:id="@+id/eDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Articulos dañados"/>
+
             <Button
                 android:id="@+id/bGuardar"
                 android:layout_width="match_parent"
@@ -76,4 +118,5 @@
                 android:text="Guardar"/>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
