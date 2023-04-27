@@ -1,9 +1,6 @@
 package com.example.controldeinventarios
 
-import com.example.controldeinventarios.models.Articulos
-import com.example.controldeinventarios.models.Login
-import com.example.controldeinventarios.models.Promociones
-import com.example.controldeinventarios.models.Usuarios
+import com.example.controldeinventarios.models.*
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -116,7 +113,8 @@ interface Api {
         @Header("Authorization") token: String,
         @Field("nombre") nombre: String,
         @Field("descripcion") descripcion: String,
-        @Field("vigencia") vigencia: String,
+        @Field("vigenciaInicial") vigenciaInicial: String,
+        @Field("vigenciaFinal") vigenciaFinal: String,
     ): Observable<Any>
 
     @FormUrlEncoded
@@ -126,7 +124,8 @@ interface Api {
         @Path("promocionesid") usuarioid: String,
         @Field("nombre") nombre: String,
         @Field("descripcion") descripcion: String,
-        @Field("vigencia") vigenciaini: String
+        @Field("vigenciaInicial") vigenciaInicial: String,
+        @Field("vigenciaFinal") vigenciaFinal: String
     ): Observable<Any>
 
     @GET("promociones/{promocionesid}")
@@ -152,5 +151,16 @@ interface Api {
         @Field("tipo") tipo: String,
         @Field("hoja_ministro") hoja_ministro: String,
         @Field("hora_supervisor") hora_supervisor: String,
+        @Field("articulos") articulos: String
+    ): Observable<Any>
+
+
+    @FormUrlEncoded
+    @POST("mermas")
+    fun guardarMermas(
+        @Header("Authorization") token: String,
+        @Field("idArticulo") idArticulo: Long,
+        @Field("cantidad") cantidad: Int,
+        @Field("tipoMerma") tipoMerma: String
     ): Observable<Any>
 }

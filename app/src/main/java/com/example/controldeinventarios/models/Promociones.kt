@@ -4,5 +4,6 @@ data class Promociones (
     var id: Long,
     var nombre: String,
     var descripcion: String,
-    var vigencia: String,
+    var vigenciaInicial: String,
+    var vigenciaFinal: String,
 )

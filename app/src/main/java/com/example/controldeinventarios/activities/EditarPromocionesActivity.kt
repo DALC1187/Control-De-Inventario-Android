@@ -19,6 +19,7 @@ import java.util.*
 class EditarPromocionesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditarPromocionesBinding
     private lateinit var dialogoFecha: DatePickerDialog
+    private lateinit var dialogoFechaFin: DatePickerDialog
     private lateinit var fecha: String
     var promocionid = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +36,10 @@ class EditarPromocionesActivity : AppCompatActivity() {
                 override fun onNext(promocionesResponse: Promociones) {
                     binding.etNombre.setText(promocionesResponse.nombre)
                     binding.eDescripcion.setText(promocionesResponse.descripcion)
-                    binding.eVigencia.setText(promocionesResponse.vigencia)
+                    binding.eVigencia.setText(promocionesResponse.vigenciaInicial)
+                    binding.eVigenciaFin.setText(promocionesResponse.vigenciaFinal)
 
-                    val fecha = promocionesResponse.vigencia.split("-")
+                    val fecha = promocionesResponse.vigenciaInicial.split("-")
                     val anio: Int = fecha[0].toInt()
                     val mes: Int = fecha[1].toInt()
                     val diaDelMes: Int = fecha[2].toInt()
@@ -49,32 +51,55 @@ class EditarPromocionesActivity : AppCompatActivity() {
                         mes,
                         diaDelMes
                     )
+
+                    val fechaFin = promocionesResponse.vigenciaFinal.split("-")
+                    val anioFin: Int = fechaFin[0].toInt()
+                    val mesFin: Int = fechaFin[1].toInt()
+                    val diaDelMesFin: Int = fechaFin[2].toInt()
+
+                    dialogoFechaFin = DatePickerDialog(
+                        this@EditarPromocionesActivity,
+                        listenerDeDatePickerFin,
+                        anioFin,
+                        mesFin,
+                        diaDelMesFin
+                    )
                 }
                 override fun onError(e: Throwable) {}
                 override fun onComplete() {}
             })
 
         binding.bActualizar.setOnClickListener {
-            api.actualizarPromociones(
-                "Bearer "+ preferencesHelper.tokenApi!!,
-                promocionid.toString(),
-                binding.etNombre.text.toString(),
-                binding.eDescripcion.text.toString(),
-                binding.eVigencia.text.toString(),
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@EditarPromocionesActivity, "Promoción actualizada correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+            if(binding.etNombre.text.toString() == "" || binding.eDescripcion.text.toString() == "" || binding.eVigencia.text.toString() == "" || binding.eVigenciaFin.text.toString() == ""){
+                Toast.makeText(this@EditarPromocionesActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.actualizarPromociones(
+                    "Bearer "+ preferencesHelper.tokenApi!!,
+                    promocionid.toString(),
+                    binding.etNombre.text.toString(),
+                    binding.eDescripcion.text.toString(),
+                    binding.eVigencia.text.toString(),
+                    binding.eVigenciaFin.text.toString(),
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@EditarPromocionesActivity, "Promoción actualizada correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
         }
 
         binding.eVigencia.setOnTouchListener { v, event ->
             dialogoFecha.show()
+            return@setOnTouchListener true
+        }
+
+        binding.eVigenciaFin.setOnTouchListener { v, event ->
+            dialogoFechaFin.show()
             return@setOnTouchListener true
         }
 
@@ -84,5 +109,11 @@ class EditarPromocionesActivity : AppCompatActivity() {
         DatePickerDialog.OnDateSetListener { view, anio, mes, diaDelMes ->
             this.fecha = "$anio-$mes-$diaDelMes"
             binding.eVigencia.setText("$anio-$mes-$diaDelMes")
+        }
+
+    private val listenerDeDatePickerFin =
+        DatePickerDialog.OnDateSetListener { view, anio, mes, diaDelMes ->
+            this.fecha = "$anio-$mes-$diaDelMes"
+            binding.eVigenciaFin.setText("$anio-$mes-$diaDelMes")
         }
 }

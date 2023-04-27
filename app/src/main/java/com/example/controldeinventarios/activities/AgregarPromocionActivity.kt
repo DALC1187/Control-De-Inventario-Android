@@ -24,21 +24,26 @@ class AgregarPromocionActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.setTitle("Agregar Promociones")
         binding.bGuardar.setOnClickListener {
-            api.guardarPromociones(
-                "Bearer "+ preferencesHelper.tokenApi!!,
-                binding.etNombre.text.toString(),
-                binding.eDescripcion.text.toString(),
-                binding.eVigencia.text.toString(),
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@AgregarPromocionActivity, "Promoción agregada correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+            if(binding.etNombre.text.toString() == "" || binding.eDescripcion.text.toString() == "" || binding.eVigencia.text.toString() == "" || binding.eVigenciaFin.text.toString() == ""){
+                Toast.makeText(this@AgregarPromocionActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.guardarPromociones(
+                    "Bearer "+ preferencesHelper.tokenApi!!,
+                    binding.etNombre.text.toString(),
+                    binding.eDescripcion.text.toString(),
+                    binding.eVigencia.text.toString(),
+                    binding.eVigenciaFin.text.toString(),
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@AgregarPromocionActivity, "Promoción agregada correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
         }
 
         val calendario: Calendar = Calendar.getInstance()
@@ -57,11 +62,31 @@ class AgregarPromocionActivity : AppCompatActivity() {
             dialogoFecha.show()
             return@setOnTouchListener true
         }
+        val calendarioFin: Calendar = Calendar.getInstance()
+        val anioFin: Int = calendario.get(Calendar.YEAR)
+        val mesFin: Int = calendario.get(Calendar.MONTH)
+        val diaDelMesFin: Int = calendario.get(Calendar.DAY_OF_MONTH)
+        val dialogoFechaFin = DatePickerDialog(
+            this@AgregarPromocionActivity,
+            listenerDeDatePickerFin,
+            anio,
+            mes,
+            diaDelMes
+        )
+        binding.eVigenciaFin.setOnTouchListener { v, event ->
+            dialogoFechaFin.show()
+            return@setOnTouchListener true
+        }
     }
 
     private val listenerDeDatePicker =
         OnDateSetListener { view, anio, mes, diaDelMes ->
             this.fecha = "$anio-$mes-$diaDelMes"
             binding.eVigencia.setText("$anio-$mes-$diaDelMes")
+        }
+    private val listenerDeDatePickerFin =
+        OnDateSetListener { view, anio, mes, diaDelMes ->
+            this.fecha = "$anio-$mes-$diaDelMes"
+            binding.eVigenciaFin.setText("$anio-$mes-$diaDelMes")
         }
 }

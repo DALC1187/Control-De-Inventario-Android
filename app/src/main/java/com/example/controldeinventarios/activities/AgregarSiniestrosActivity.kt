@@ -8,13 +8,18 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ActivityAgregarSiniestrosBinding
+import com.example.controldeinventarios.models.Articulo
+import com.example.controldeinventarios.models.Articulos
 import com.example.controldeinventarios.preferencesHelper
+import com.fasterxml.jackson.module.kotlin.jsonMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.ResourceObserver
 import io.reactivex.schedulers.Schedulers
@@ -26,10 +31,15 @@ class AgregarSiniestrosActivity : AppCompatActivity() {
     val REQUEST_CODE = 200
     val REQUEST_CODE_SUPERVISOR = 201
     private lateinit var binding: ActivityAgregarSiniestrosBinding
-    private lateinit var ministro: String
-    private lateinit var supervisor: String
+    var ministro: String = ""
+    var supervisor: String = ""
     private lateinit var spinner: Spinner
     val tiposSiniestros = arrayOf<String?>("Robo", "Incendio", "Inundación")
+    private lateinit var spinnerArticulos: Spinner
+    var articulos = mutableListOf("Seleccionar articulo")
+    private lateinit var a: List<Articulos>
+    var articulosDanados = mutableListOf<Any>()
+    var aId: Long = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAgregarSiniestrosBinding.inflate(layoutInflater)
@@ -73,24 +83,68 @@ class AgregarSiniestrosActivity : AppCompatActivity() {
         binding.iBMinisterio.setOnClickListener { capturePhoto(REQUEST_CODE) }
         binding.iBSupervisor.setOnClickListener { capturePhoto(REQUEST_CODE_SUPERVISOR) }
         binding.bGuardar.setOnClickListener {
-            api.guardarSiniestro(
-                "Bearer "+ preferencesHelper.tokenApi!!,
-                binding.eFechaSiniestro.text.toString(),
-                binding.eHoraSiniestro.text.toString(),
-                binding.eDescripcion.text.toString(),
-                spinner.selectedItem.toString(),
-                ministro,
-                supervisor
+            if(binding.eFechaSiniestro.text.toString() == "" || binding.eHoraSiniestro.text.toString() == "" || binding.eDescripcion.text.toString() == "" || ministro == "" || supervisor == "" || articulosDanados.size == 0){
+                Toast.makeText(this@AgregarSiniestrosActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.guardarSiniestro(
+                    "Bearer "+ preferencesHelper.tokenApi!!,
+                    binding.eFechaSiniestro.text.toString(),
+                    binding.eHoraSiniestro.text.toString(),
+                    binding.eDescripcion.text.toString(),
+                    spinner.selectedItem.toString(),
+                    ministro,
+                    supervisor,
+                    jsonMapper().writeValueAsString(articulosDanados)
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@AgregarSiniestrosActivity, "Siniestro agregado correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
+        }
+        spinnerArticulos = binding.sArticulos
+        val adapterArticulos: ArrayAdapter<*> =
+            ArrayAdapter<Any?>(this@AgregarSiniestrosActivity, android.R.layout.simple_spinner_item,
+                articulos as List<String?>
             )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@AgregarSiniestrosActivity, "Siniestro agregado correctamente", Toast.LENGTH_SHORT).show()
+        adapterArticulos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        api.obtenerArticulos("Bearer "+ preferencesHelper.tokenApi!!)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.newThread())
+            .subscribe(object : ResourceObserver<List<Articulos>>() {
+                override fun onNext(articulosResponse: List<Articulos>) {
+                    articulosResponse.forEach {
+                        articulos.add(it.nombre)
                     }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+                    a = articulosResponse
+
+                    spinnerArticulos.adapter = adapterArticulos
+                }
+                override fun onError(e: Throwable) {}
+                override fun onComplete() {}
+            })
+
+        spinnerArticulos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(position != 0){
+                    aId = a.get(position - 1).id
+                }
+            }
+        }
+        binding.bAgregarArticulo.setOnClickListener {
+            if(spinnerArticulos.selectedItem.toString() == "Seleccionar articulo" || binding.eCantidad.text.toString() == ""){
+                Toast.makeText(this@AgregarSiniestrosActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                articulosDanados.add(Articulo(aId,spinnerArticulos.selectedItem.toString(), binding.eCantidad.text.toString().toInt()))
+                binding.tArticulos.append("${spinnerArticulos.selectedItem.toString()}: ${binding.eCantidad.text.toString()}\n")
+            }
         }
     }
 
@@ -109,7 +163,6 @@ class AgregarSiniestrosActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_SUPERVISOR && data != null){
             binding.iMSupervisor.setImageBitmap(data.extras!!.get("data") as Bitmap)
             supervisor = encodeImage(data.extras!!.get("data") as Bitmap)!!
-            Log.i("FOTO", supervisor)
         }
     }
 

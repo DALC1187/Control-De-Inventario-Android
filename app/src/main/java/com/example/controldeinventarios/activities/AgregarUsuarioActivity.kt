@@ -30,24 +30,29 @@ class AgregarUsuarioActivity : AppCompatActivity() {
         spinner.adapter = adapter
 
         binding.bGuardar.setOnClickListener {
-            api.guardarUsuario(
-            "Bearer "+ preferencesHelper.tokenApi!!,
-            binding.etNombre.text.toString(),
-            binding.etApellidoPaterno.text.toString(),
-            binding.etApellidoMaterno.text.toString(),
-            spinner.selectedItem.toString(),
-            binding.etEmail.text.toString(),
-            binding.etPassword.text.toString()
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@AgregarUsuarioActivity, "Usuario agregado correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+
+            if(binding.etNombre.text.toString() == "" || binding.etApellidoPaterno.text.toString() == "" || binding.etApellidoMaterno.text.toString() == "" || binding.etPassword.text.toString() == "" || android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()){
+                Toast.makeText(this@AgregarUsuarioActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.guardarUsuario(
+                    "Bearer "+ preferencesHelper.tokenApi!!,
+                    binding.etNombre.text.toString(),
+                    binding.etApellidoPaterno.text.toString(),
+                    binding.etApellidoMaterno.text.toString(),
+                    spinner.selectedItem.toString(),
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@AgregarUsuarioActivity, "Usuario agregado correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
         }
     }
 }

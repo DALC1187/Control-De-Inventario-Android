@@ -59,6 +59,10 @@ class UsuarioActivity : AppCompatActivity() {
                 val activity= Intent(this, AgregarSiniestrosActivity::class.java)
                 startActivity(activity)
             }
+            R.id.merma -> {
+                val activity= Intent(this, AgregarMermaActivity::class.java)
+                startActivity(activity)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

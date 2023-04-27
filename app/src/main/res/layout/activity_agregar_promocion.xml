@@ -46,9 +46,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Vigencia" />
+                android:text="Vigencia Inicial" />
             <EditText
                 android:id="@+id/eVigencia"
+                android:layout_width="match_parent"
+                android:allowClickWhenDisabled="true"
+                android:editable="false"
+                android:layout_height="wrap_content"
+                android:text=""/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Vigencia Final" />
+            <EditText
+                android:id="@+id/eVigenciaFin"
                 android:layout_width="match_parent"
                 android:allowClickWhenDisabled="true"
                 android:editable="false"

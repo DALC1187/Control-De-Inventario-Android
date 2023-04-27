@@ -37,6 +37,7 @@
             <EditText
                 android:id="@+id/etCostoPieza"
                 android:layout_width="match_parent"
+                android:inputType="numberDecimal"
                 android:layout_height="wrap_content"
                 android:text=""/>
             <TextView
@@ -48,6 +49,7 @@
                 android:id="@+id/etPiezasPorPaquete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:text=""/>
             <TextView
                 android:layout_width="match_parent"
@@ -58,6 +60,7 @@
                 android:id="@+id/etStockInicial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:text=""/>
             <TextView
                 android:layout_width="match_parent"

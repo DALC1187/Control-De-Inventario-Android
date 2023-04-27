@@ -29,23 +29,29 @@ class AgregarArticuloActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         binding.bGuardar.setOnClickListener {
-            api.guardarArticulos(
-            "Bearer "+ preferencesHelper.tokenApi!!,
-            binding.etNombre.text.toString(),
-            binding.etCostoPieza.text.toString().toDouble(),
-            binding.etPiezasPorPaquete.text.toString().toInt(),
-            binding.etStockInicial.text.toString().toInt(),
-            spinner.selectedItem.toString(),
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@AgregarArticuloActivity, "Articulo agregado correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+
+            if(binding.etNombre.text.toString() == "" || binding.etCostoPieza.text.toString().toDoubleOrNull() == null || binding.etPiezasPorPaquete.text.toString().toIntOrNull() == null || binding.etStockInicial.text.toString().toIntOrNull() == null){
+                Toast.makeText(this@AgregarArticuloActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.guardarArticulos(
+                    "Bearer "+ preferencesHelper.tokenApi!!,
+                    binding.etNombre.text.toString(),
+                    binding.etCostoPieza.text.toString().toDouble(),
+                    binding.etPiezasPorPaquete.text.toString().toInt(),
+                    binding.etStockInicial.text.toString().toInt(),
+                    spinner.selectedItem.toString(),
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@AgregarArticuloActivity, "Articulo agregado correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
+
         }
     }
 }

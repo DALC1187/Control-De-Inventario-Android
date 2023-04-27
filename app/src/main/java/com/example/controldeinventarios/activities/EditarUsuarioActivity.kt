@@ -46,25 +46,29 @@ class EditarUsuarioActivity : AppCompatActivity() {
             })
 
         binding.bActualizar.setOnClickListener {
-            api.actualizarUsuario(
-                "Bearer "+preferencesHelper.tokenApi!!,
-                usuarioid.toString(),
-                binding.etNombre.text.toString(),
-                binding.etApellidoPaterno.text.toString(),
-                binding.etApellidoMaterno.text.toString(),
-                spinner.selectedItem.toString(),
-                binding.etEmail.text.toString(),
-                binding.etPassword.text.toString()
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@EditarUsuarioActivity, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+            if(binding.etNombre.text.toString() == "" || binding.etApellidoPaterno.text.toString() == "" || binding.etApellidoMaterno.text.toString() == "" || !(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())){
+                Toast.makeText(this@EditarUsuarioActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.actualizarUsuario(
+                    "Bearer "+preferencesHelper.tokenApi!!,
+                    usuarioid.toString(),
+                    binding.etNombre.text.toString(),
+                    binding.etApellidoPaterno.text.toString(),
+                    binding.etApellidoMaterno.text.toString(),
+                    spinner.selectedItem.toString(),
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@EditarUsuarioActivity, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
         }
 
 

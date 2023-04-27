@@ -17,5 +17,9 @@
         android:id="@+id/siniestros"
         android:title="Siniestros"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/merma"
+        android:title="Merma"
+        app:showAsAction="never"/>
 </menu>
 

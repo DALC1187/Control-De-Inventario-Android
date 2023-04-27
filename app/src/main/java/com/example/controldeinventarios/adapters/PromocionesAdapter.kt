@@ -29,7 +29,7 @@ class PromocionesAdapter(
         fun bind(promociones: Promociones) = with(itemView){
             binding.nombre.text = promociones.nombre
             binding.descripcion.text = promociones.descripcion
-            binding.vigencia.text = promociones.vigencia
+            binding.vigencia.text = "${promociones.vigenciaInicial} - ${promociones.vigenciaFinal}"
 
             binding.bEliminar.setOnClickListener {
                api.eliminarPromociones("Bearer "+ preferencesHelper.tokenApi!!,promociones.id.toString())

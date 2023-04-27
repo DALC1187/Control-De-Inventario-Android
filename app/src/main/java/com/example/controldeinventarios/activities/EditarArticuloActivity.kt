@@ -3,6 +3,7 @@ package com.example.controldeinventarios.activities
 import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -47,24 +48,28 @@ var articuloid = 0L
             })
 
         binding.bActualizar.setOnClickListener {
-            api.actualizarArticulos(
-                "Bearer "+preferencesHelper.tokenApi!!,
-                articuloid.toString(),
-                binding.etNombre.text.toString(),
-                binding.etCostoPieza.text.toString().toDouble(),
-                binding.etPiezasPorPaquete.text.toString().toInt(),
-                binding.etStockInicial.text.toString().toInt(),
-                spinner.selectedItem.toString(),
-            )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(object : ResourceObserver<Any>() {
-                    override fun onNext(genericResponse: Any) {
-                        Toast.makeText(this@EditarArticuloActivity, "Articulo actualizado correctamente", Toast.LENGTH_SHORT).show()
-                    }
-                    override fun onError(e: Throwable) {}
-                    override fun onComplete() {}
-                })
+            if(binding.etNombre.text.toString() == "" || binding.etCostoPieza.text.toString().toDoubleOrNull() == null || binding.etPiezasPorPaquete.text.toString().toIntOrNull() == null || binding.etStockInicial.text.toString().toIntOrNull() == null){
+                Toast.makeText(this@EditarArticuloActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
+            }else{
+                api.actualizarArticulos(
+                    "Bearer "+preferencesHelper.tokenApi!!,
+                    articuloid.toString(),
+                    binding.etNombre.text.toString(),
+                    binding.etCostoPieza.text.toString().toDouble(),
+                    binding.etPiezasPorPaquete.text.toString().toInt(),
+                    binding.etStockInicial.text.toString().toInt(),
+                    spinner.selectedItem.toString(),
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.newThread())
+                    .subscribe(object : ResourceObserver<Any>() {
+                        override fun onNext(genericResponse: Any) {
+                            Toast.makeText(this@EditarArticuloActivity, "Articulo actualizado correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        override fun onError(e: Throwable) {}
+                        override fun onComplete() {}
+                    })
+            }
         }
 
 
