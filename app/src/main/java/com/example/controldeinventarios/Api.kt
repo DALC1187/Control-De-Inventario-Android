@@ -86,7 +86,6 @@ interface Api {
         @Field("nombre") nombre: String,
         @Field("costoPieza") costoPieza: Double,
         @Field("numPiezaPaquete") numPiezaPaquete: Int,
-        @Field("stockInicial") stockInicial: Int,
         @Field("clasificacion") clasificacion: String,
     ): Observable<Any>
 
@@ -115,6 +114,9 @@ interface Api {
         @Field("descripcion") descripcion: String,
         @Field("vigenciaInicial") vigenciaInicial: String,
         @Field("vigenciaFinal") vigenciaFinal: String,
+        @Field("idArticulo") idArticulo: Long,
+        @Field("costo") costo: Double,
+        @Field("cantidad") cantidad: Int,
     ): Observable<Any>
 
     @FormUrlEncoded
@@ -125,7 +127,10 @@ interface Api {
         @Field("nombre") nombre: String,
         @Field("descripcion") descripcion: String,
         @Field("vigenciaInicial") vigenciaInicial: String,
-        @Field("vigenciaFinal") vigenciaFinal: String
+        @Field("vigenciaFinal") vigenciaFinal: String,
+        @Field("idArticulo") idArticulo: Long,
+        @Field("costo") costo: Double,
+        @Field("cantidad") cantidad: Int
     ): Observable<Any>
 
     @GET("promociones/{promocionesid}")
@@ -161,6 +166,10 @@ interface Api {
         @Header("Authorization") token: String,
         @Field("idArticulo") idArticulo: Long,
         @Field("cantidad") cantidad: Int,
-        @Field("tipoMerma") tipoMerma: String
-    ): Observable<Any>
+        @Field("tipoMerma") tipoMerma: String,
+        @Field("tipoDano") tipoDano: String?,
+        @Field("cambioProveedor") cambioProveedor: String?,
+        @Field("idArticuloEntregado") idArticuloEntregado: Long?,
+        @Field("cantidadEntregado") cantidadEntregado: Int?,
+        ): Observable<Any>
 }

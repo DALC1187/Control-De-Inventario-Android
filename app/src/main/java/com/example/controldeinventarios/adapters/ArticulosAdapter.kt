@@ -29,7 +29,6 @@ class ArticulosAdapter(
             binding.nombre.text = articulos.nombre
             binding.costoPieza.text = articulos.costoPieza.toString()
             binding.numPiezaPaquete.text = articulos.numPiezaPaquete.toString()
-            binding.stockInicial.text = articulos.stockInicial.toString()
             binding.bEliminar.setOnClickListener {
                 api.eliminarArticulos("Bearer "+ preferencesHelper.tokenApi!!,articulos.id.toString())
                     .observeOn(AndroidSchedulers.mainThread())

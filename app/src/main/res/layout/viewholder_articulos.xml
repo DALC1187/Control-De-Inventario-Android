@@ -72,28 +72,6 @@
         app:layout_constraintStart_toEndOf="@+id/t_numPiezaPaquete"
         app:layout_constraintTop_toBottomOf="@+id/costoPieza" />
 
-    <TextView
-        android:id="@+id/t_stockInicial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Stock inicial:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />
-
-    <TextView
-        android:id="@+id/stockInicial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/t_stockInicial"
-        app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />
-
     <Button
         android:id="@+id/b_editar"
         android:layout_width="0dp"
@@ -104,7 +82,7 @@
         android:text="Editar"
         app:layout_constraintEnd_toStartOf="@+id/b_eliminar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stockInicial" />
+        app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />
 
     <Button
         android:id="@+id/b_eliminar"
@@ -116,6 +94,6 @@
         android:text="Eliminar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/b_editar"
-        app:layout_constraintTop_toBottomOf="@+id/stockInicial" />
+        app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

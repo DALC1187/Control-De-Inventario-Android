@@ -55,17 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Stock inicial"/>
-            <EditText
-                android:id="@+id/etStockInicial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text=""/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="Clasificación"/>
             <Spinner
                 android:id="@+id/sClasificacion"

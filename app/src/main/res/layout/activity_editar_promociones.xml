@@ -66,7 +66,37 @@
                 android:editable="false"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Articulo"/>
+            <Spinner
+                android:id="@+id/sArticulos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cantidad" />
+            <EditText
+                android:id="@+id/eCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text=""/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Costo"/>
+            <EditText
+                android:id="@+id/etCosto"
+                android:layout_width="match_parent"
+                android:inputType="numberDecimal"
+                android:layout_height="wrap_content"
+                android:text=""/>
             <Button
                 android:id="@+id/bActualizar"
                 android:layout_width="match_parent"

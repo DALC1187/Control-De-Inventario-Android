@@ -61,17 +61,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/tTipoDanoSucursal"
+                android:id="@+id/tCambioProveedor"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Tipo de daño" />
+                android:text="¿Cambio con el proveedor?" />
             <Spinner
-                android:id="@+id/sTipoDanoSucursal"
+                android:id="@+id/sCambioProveedor"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tArticulosCambio"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Nuevo articulo entregado"/>
+            <Spinner
+                android:id="@+id/sArticulosCambio"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tCantidadCambio"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cantidad de articulos entregados" />
+            <EditText
+                android:id="@+id/eCantidadCambio"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text=""/>
             <Button
                 android:id="@+id/bGuardar"
                 android:layout_width="match_parent"

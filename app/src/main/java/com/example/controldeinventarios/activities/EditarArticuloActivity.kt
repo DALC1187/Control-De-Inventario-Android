@@ -40,7 +40,6 @@ var articuloid = 0L
                     binding.etNombre.setText(articulosResponse.nombre)
                     binding.etCostoPieza.setText(articulosResponse.costoPieza.toString())
                     binding.etPiezasPorPaquete.setText(articulosResponse.numPiezaPaquete.toString())
-                    binding.etStockInicial.setText(articulosResponse.stockInicial.toString())
                     spinner.setSelection(clasificacion.indexOfFirst { it == articulosResponse.clasificacion })
                 }
                 override fun onError(e: Throwable) {}
@@ -48,7 +47,7 @@ var articuloid = 0L
             })
 
         binding.bActualizar.setOnClickListener {
-            if(binding.etNombre.text.toString() == "" || binding.etCostoPieza.text.toString().toDoubleOrNull() == null || binding.etPiezasPorPaquete.text.toString().toIntOrNull() == null || binding.etStockInicial.text.toString().toIntOrNull() == null){
+            if(binding.etNombre.text.toString() == "" || binding.etCostoPieza.text.toString().toDoubleOrNull() == null || binding.etPiezasPorPaquete.text.toString().toIntOrNull() == null){
                 Toast.makeText(this@EditarArticuloActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
             }else{
                 api.actualizarArticulos(
@@ -57,7 +56,6 @@ var articuloid = 0L
                     binding.etNombre.text.toString(),
                     binding.etCostoPieza.text.toString().toDouble(),
                     binding.etPiezasPorPaquete.text.toString().toInt(),
-                    binding.etStockInicial.text.toString().toInt(),
                     spinner.selectedItem.toString(),
                 )
                     .observeOn(AndroidSchedulers.mainThread())
