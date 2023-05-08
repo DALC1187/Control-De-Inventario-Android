@@ -104,7 +104,7 @@ class EditarPromocionesActivity : AppCompatActivity() {
                                 aId = promocionesResponse.idArticulo
                                 val fecha = promocionesResponse.vigenciaInicial.split("-")
                                 val anio: Int = fecha[0].toInt()
-                                val mes: Int = fecha[1].toInt()
+                                val mes: Int = fecha[1].toInt() - 1
                                 val diaDelMes: Int = fecha[2].toInt()
 
                                 dialogoFecha = DatePickerDialog(
@@ -117,7 +117,7 @@ class EditarPromocionesActivity : AppCompatActivity() {
 
                                 val fechaFin = promocionesResponse.vigenciaFinal.split("-")
                                 val anioFin: Int = fechaFin[0].toInt()
-                                val mesFin: Int = fechaFin[1].toInt()
+                                val mesFin: Int = fechaFin[1].toInt() - 1
                                 val diaDelMesFin: Int = fechaFin[2].toInt()
 
                                 dialogoFechaFin = DatePickerDialog(
@@ -154,13 +154,15 @@ class EditarPromocionesActivity : AppCompatActivity() {
 
     private val listenerDeDatePicker =
         DatePickerDialog.OnDateSetListener { view, anio, mes, diaDelMes ->
-            this.fecha = "$anio-$mes-$diaDelMes"
-            binding.eVigencia.setText("$anio-$mes-$diaDelMes")
+            val nuevoMes = mes + 1
+            this.fecha = "$anio-$nuevoMes-$diaDelMes"
+            binding.eVigencia.setText("$anio-$nuevoMes-$diaDelMes")
         }
 
     private val listenerDeDatePickerFin =
         DatePickerDialog.OnDateSetListener { view, anio, mes, diaDelMes ->
-            this.fecha = "$anio-$mes-$diaDelMes"
-            binding.eVigenciaFin.setText("$anio-$mes-$diaDelMes")
+            val nuevoMes = mes + 1
+            this.fecha = "$anio-$nuevoMes-$diaDelMes"
+            binding.eVigenciaFin.setText("$anio-$nuevoMes-$diaDelMes")
         }
 }

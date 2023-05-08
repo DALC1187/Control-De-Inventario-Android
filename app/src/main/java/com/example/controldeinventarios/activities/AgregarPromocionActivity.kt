@@ -4,7 +4,6 @@ import android.R
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -67,7 +66,6 @@ class AgregarPromocionActivity : AppCompatActivity() {
                     })
             }
         }
-
         val calendario: Calendar = Calendar.getInstance()
         val anio: Int = calendario.get(Calendar.YEAR)
         val mes: Int = calendario.get(Calendar.MONTH)
@@ -133,12 +131,14 @@ class AgregarPromocionActivity : AppCompatActivity() {
 
     private val listenerDeDatePicker =
         OnDateSetListener { view, anio, mes, diaDelMes ->
-            this.fecha = "$anio-$mes-$diaDelMes"
-            binding.eVigencia.setText("$anio-$mes-$diaDelMes")
+            val nuevoMes = mes + 1
+            this.fecha = "$anio-$nuevoMes-$diaDelMes"
+            binding.eVigencia.setText("$anio-$nuevoMes-$diaDelMes")
         }
     private val listenerDeDatePickerFin =
         OnDateSetListener { view, anio, mes, diaDelMes ->
-            this.fecha = "$anio-$mes-$diaDelMes"
-            binding.eVigenciaFin.setText("$anio-$mes-$diaDelMes")
+            val nuevoMes = mes + 1
+            this.fecha = "$anio-$nuevoMes-$diaDelMes"
+            binding.eVigenciaFin.setText("$anio-$nuevoMes-$diaDelMes")
         }
 }
