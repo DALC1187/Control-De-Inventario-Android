@@ -45,6 +45,11 @@ class AgregarArticuloActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.newThread())
                     .subscribe(object : ResourceObserver<Any>() {
                         override fun onNext(genericResponse: Any) {
+                            binding.etNombre.setText("")
+                            binding.etCostoPieza.setText("")
+                            binding.etPiezasPorPaquete.setText("")
+                            binding.etStockInicial.setText("")
+                            binding.sClasificacion.setSelection(0)
                             Toast.makeText(this@AgregarArticuloActivity, "Articulo agregado correctamente", Toast.LENGTH_SHORT).show()
                         }
                         override fun onError(e: Throwable) {}

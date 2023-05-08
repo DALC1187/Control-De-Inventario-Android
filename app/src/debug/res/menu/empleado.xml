@@ -6,22 +6,6 @@
         android:title="Articulos"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/usuarios"
-        android:title="Usuarios"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/promociones"
-        android:title="Promociones"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/siniestros"
-        android:title="Siniestros"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/merma"
-        android:title="Merma"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/articulosEntrantes"
         android:title="Articulos entrantes"
         app:showAsAction="never"/>

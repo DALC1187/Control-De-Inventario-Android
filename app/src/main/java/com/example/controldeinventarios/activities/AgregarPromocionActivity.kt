@@ -52,6 +52,14 @@ class AgregarPromocionActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.newThread())
                     .subscribe(object : ResourceObserver<Any>() {
                         override fun onNext(genericResponse: Any) {
+                            binding.etNombre.setText("")
+                            binding.eDescripcion.setText("")
+                            binding.eVigencia.setText("")
+                            binding.eVigenciaFin.setText("")
+                            aId = 0L
+                            binding.etCosto.setText("")
+                            binding.eCantidad.setText("")
+                            binding.sArticulos.setSelection(0)
                             Toast.makeText(this@AgregarPromocionActivity, "Promoción agregada correctamente", Toast.LENGTH_SHORT).show()
                         }
                         override fun onError(e: Throwable) {}

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/t_nombre"
@@ -70,6 +70,70 @@
         app:layout_constraintStart_toEndOf="@+id/t_vigencia"
         app:layout_constraintTop_toBottomOf="@+id/descripcion" />
 
+    <TextView
+        android:id="@+id/tArticulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Articulo:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vigencia" />
+
+    <TextView
+        android:id="@+id/articulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tArticulo"
+        app:layout_constraintTop_toBottomOf="@+id/vigencia" />
+
+    <TextView
+        android:id="@+id/tCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Cantidad (pzas):"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/articulo" />
+
+    <TextView
+        android:id="@+id/cantidad"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tCantidad"
+        app:layout_constraintTop_toBottomOf="@+id/articulo" />
+
+    <TextView
+        android:id="@+id/tCosto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Costo:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cantidad" />
+
+    <TextView
+        android:id="@+id/costo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tCosto"
+        app:layout_constraintTop_toBottomOf="@+id/cantidad" />
+
+
     <Button
         android:id="@+id/b_editar"
         android:layout_width="0dp"
@@ -80,7 +144,7 @@
         android:text="Editar"
         app:layout_constraintEnd_toStartOf="@+id/b_eliminar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vigencia" />
+        app:layout_constraintTop_toBottomOf="@+id/costo" />
 
     <Button
         android:id="@+id/b_eliminar"
@@ -92,7 +156,7 @@
         android:text="Eliminar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/b_editar"
-        app:layout_constraintTop_toBottomOf="@+id/vigencia" />
+        app:layout_constraintTop_toBottomOf="@+id/costo" />
 
 
 

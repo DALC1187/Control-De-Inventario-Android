@@ -7,6 +7,7 @@ data class Promociones (
     var vigenciaInicial: String,
     var vigenciaFinal: String,
     var idArticulo: Long,
+    var articulo: String,
     var cantidad: Int,
     var costo: Double
 )

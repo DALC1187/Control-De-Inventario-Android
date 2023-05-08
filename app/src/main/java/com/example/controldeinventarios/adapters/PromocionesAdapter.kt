@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.controldeinventarios.activities.EditarPromocionesActivity
+import com.example.controldeinventarios.activities.PromopcionesActivity
+import com.example.controldeinventarios.activities.UsuarioActivity
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ViewholderPromocionesBinding
 import com.example.controldeinventarios.models.Promociones
@@ -30,6 +32,9 @@ class PromocionesAdapter(
             binding.nombre.text = promociones.nombre
             binding.descripcion.text = promociones.descripcion
             binding.vigencia.text = "${promociones.vigenciaInicial} - ${promociones.vigenciaFinal}"
+            binding.articulo.text = promociones.articulo
+            binding.cantidad.text = promociones.cantidad.toString()
+            binding.costo.text = promociones.costo.toString()
 
             binding.bEliminar.setOnClickListener {
                api.eliminarPromociones("Bearer "+ preferencesHelper.tokenApi!!,promociones.id.toString())
@@ -38,6 +43,7 @@ class PromocionesAdapter(
                     .subscribe(object : ResourceObserver<Any>() {
                         override fun onNext(genericResponse: Any) {
                             Toast.makeText(context, "Promoción eliminada correctamente", Toast.LENGTH_SHORT).show()
+                            (context as PromopcionesActivity).obtenerPromociones()
                         }
                         override fun onError(e: Throwable) {}
                         override fun onComplete() {}

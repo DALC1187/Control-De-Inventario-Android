@@ -80,6 +80,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:text="Editar"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/b_eliminar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />
@@ -92,6 +93,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="Eliminar"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/b_editar"
         app:layout_constraintTop_toBottomOf="@+id/numPiezaPaquete" />

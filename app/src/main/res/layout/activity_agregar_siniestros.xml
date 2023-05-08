@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Cantidad" />
+                android:text="Cantidad (pzas)" />
             <EditText
                 android:id="@+id/eCantidad"
                 android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Articulos dañados"/>
+                android:text="Articulos dañados (pzas)"/>
 
             <TextView
                 android:id="@+id/tArticulos"

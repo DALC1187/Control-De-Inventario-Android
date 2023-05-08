@@ -41,7 +41,11 @@ class UsuarioActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.administrador, menu)
+        if(preferencesHelper.tipoUsuario == "ADMINISTRADOR"){
+            menuInflater.inflate(R.menu.administrador, menu)
+        }else{
+            menuInflater.inflate(R.menu.empleado, menu)
+        }
         return true
     }
 
@@ -62,6 +66,25 @@ class UsuarioActivity : AppCompatActivity() {
             R.id.merma -> {
                 val activity= Intent(this, AgregarMermaActivity::class.java)
                 startActivity(activity)
+            }
+            R.id.articulosEntrantes -> {
+                val activity= Intent(this, AgregarArticulosEntrantesActivity::class.java)
+                startActivity(activity)
+            }
+            R.id.inventario -> {
+                val activity= Intent(this, AgregarInventarioActivity::class.java)
+                startActivity(activity)
+            }
+            R.id.inventario8020 -> {
+                val activity= Intent(this, AgregarInventario8020Activity::class.java)
+                startActivity(activity)
+            }
+            R.id.cerrarSesion -> {
+                val activity= Intent(this, MainActivity::class.java)
+                activity.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(activity)
+                finish()
+                preferencesHelper.tokenApi = null
             }
         }
         return super.onOptionsItemSelected(item)
@@ -88,5 +111,11 @@ class UsuarioActivity : AppCompatActivity() {
                 }
                 } }override fun onError(e: Throwable) {}override fun onComplete() {}
             })
+    }
+
+
+    override fun onRestart() {
+        super.onRestart()
+        obtenerUsuarios()
     }
 }

@@ -60,6 +60,14 @@ interface Api {
         @Header("Authorization") token: String,
     ): Observable<List<Articulos>>
 
+
+    @GET("articulos/masVendido")
+    fun obtenerArticulosMasVendido(
+        @Header("Authorization") token: String,
+    ): Observable<List<Articulos>>
+
+
+
     @FormUrlEncoded
     @POST("articulos/buscador")
     fun buscadorArticulos(
@@ -157,7 +165,7 @@ interface Api {
         @Field("hoja_ministro") hoja_ministro: String,
         @Field("hora_supervisor") hora_supervisor: String,
         @Field("articulos") articulos: String
-    ): Observable<Any>
+    ): Observable<GenericResponse>
 
 
     @FormUrlEncoded
@@ -171,5 +179,26 @@ interface Api {
         @Field("cambioProveedor") cambioProveedor: String?,
         @Field("idArticuloEntregado") idArticuloEntregado: Long?,
         @Field("cantidadEntregado") cantidadEntregado: Int?,
-        ): Observable<Any>
+        ): Observable<GenericResponse>
+
+
+
+    @FormUrlEncoded
+    @POST("articulos/entrantes")
+    fun guardarArticulosEntrantes(
+        @Header("Authorization") token: String,
+        @Field("idArticulo") idArticulo: Long,
+        @Field("cantidad") cantidad: Int,
+    ): Observable<Any>
+
+
+
+
+    @FormUrlEncoded
+    @POST("inventarios")
+    fun agregarInventario(
+        @Header("Authorization") token: String,
+        @Field("articulos") articulos: String,
+        @Field("general") general: Int,
+    ): Observable<GenericResponse>
 }

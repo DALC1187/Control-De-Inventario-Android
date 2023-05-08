@@ -17,9 +17,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name=".activities.AgregarMermaActivity"
+            android:name=".activities.AgregarInventario8020Activity"
             android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
+        <activity
+            android:name=".activities.AgregarInventarioActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.AgregarArticulosEntrantesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.AgregarMermaActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.AgregarSiniestrosActivity"
             android:exported="true">
@@ -95,7 +111,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <meta-data

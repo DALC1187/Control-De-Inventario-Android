@@ -18,6 +18,7 @@ import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ActivityAgregarSiniestrosBinding
 import com.example.controldeinventarios.models.Articulo
 import com.example.controldeinventarios.models.Articulos
+import com.example.controldeinventarios.models.GenericResponse
 import com.example.controldeinventarios.preferencesHelper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -98,9 +99,29 @@ class AgregarSiniestrosActivity : AppCompatActivity() {
                 )
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.newThread())
-                    .subscribe(object : ResourceObserver<Any>() {
-                        override fun onNext(genericResponse: Any) {
-                            Toast.makeText(this@AgregarSiniestrosActivity, "Siniestro agregado correctamente", Toast.LENGTH_SHORT).show()
+                    .subscribe(object : ResourceObserver<GenericResponse>() {
+                        override fun onNext(genericResponse: GenericResponse) {
+                            if(genericResponse.result == "ok") {
+                                binding.eFechaSiniestro.setText("")
+                                binding.eHoraSiniestro.setText("")
+                                binding.eDescripcion.setText("")
+                                binding.sArticulos.setSelection(0)
+                                binding.sTipoDeSiniestro.setSelection(0)
+                                binding.eCantidad.setText("")
+                                binding.tArticulos.setText("")
+                                binding.iMSupervisor.setImageBitmap(null)
+                                binding.iMMinisterio.setImageBitmap(null)
+                                ministro = ""
+                                supervisor = ""
+                                articulosDanados = mutableListOf<Any>()
+                                Toast.makeText(this@AgregarSiniestrosActivity, "Siniestro agregado correctamente", Toast.LENGTH_SHORT).show()
+                            }else{
+                                articulosDanados = mutableListOf<Any>()
+                                binding.eCantidad.setText("")
+                                binding.tArticulos.setText("")
+                                binding.sArticulos.setSelection(0)
+                                Toast.makeText(this@AgregarSiniestrosActivity, "La cantidad proporcionada de algunos de los articulos es mayor contra la que se tiene en stock.", Toast.LENGTH_LONG).show()
+                            }
                         }
                         override fun onError(e: Throwable) {}
                         override fun onComplete() {}
@@ -144,6 +165,8 @@ class AgregarSiniestrosActivity : AppCompatActivity() {
             }else{
                 articulosDanados.add(Articulo(aId,spinnerArticulos.selectedItem.toString(), binding.eCantidad.text.toString().toInt()))
                 binding.tArticulos.append("${spinnerArticulos.selectedItem.toString()}: ${binding.eCantidad.text.toString()}\n")
+                binding.sArticulos.setSelection(0)
+                binding.eCantidad.setText("")
             }
         }
     }

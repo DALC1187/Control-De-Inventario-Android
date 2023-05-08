@@ -31,7 +31,7 @@ class AgregarUsuarioActivity : AppCompatActivity() {
 
         binding.bGuardar.setOnClickListener {
 
-            if(binding.etNombre.text.toString() == "" || binding.etApellidoPaterno.text.toString() == "" || binding.etApellidoMaterno.text.toString() == "" || binding.etPassword.text.toString() == "" || android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()){
+            if(binding.etNombre.text.toString() == "" || binding.etApellidoPaterno.text.toString() == "" || binding.etApellidoMaterno.text.toString() == "" || binding.etPassword.text.toString() == "" || !(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())){
                 Toast.makeText(this@AgregarUsuarioActivity, "Los campos no son correctos", Toast.LENGTH_SHORT).show()
             }else{
                 api.guardarUsuario(
@@ -47,6 +47,12 @@ class AgregarUsuarioActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.newThread())
                     .subscribe(object : ResourceObserver<Any>() {
                         override fun onNext(genericResponse: Any) {
+                            binding.etNombre.setText("")
+                            binding.etApellidoPaterno.setText("")
+                            binding.etApellidoMaterno.setText("")
+                            binding.etEmail.setText("")
+                            binding.etPassword.setText("")
+                            binding.sTipoDeUsuario.setSelection(0)
                             Toast.makeText(this@AgregarUsuarioActivity, "Usuario agregado correctamente", Toast.LENGTH_SHORT).show()
                         }
                         override fun onError(e: Throwable) {}

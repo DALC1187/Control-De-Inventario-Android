@@ -2,10 +2,13 @@ package com.example.controldeinventarios.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.controldeinventarios.activities.ArticulosActivity
 import com.example.controldeinventarios.activities.EditarArticuloActivity
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ViewholderArticulosBinding
@@ -26,6 +29,10 @@ class ArticulosAdapter(
         val context: Context
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(articulos: Articulos) = with(itemView){
+            if(preferencesHelper.tipoUsuario=="ADMINISTRADOR"){
+                binding.bEditar.visibility=View.VISIBLE
+                binding.bEliminar.visibility=View.VISIBLE
+            }
             binding.nombre.text = articulos.nombre
             binding.costoPieza.text = articulos.costoPieza.toString()
             binding.numPiezaPaquete.text = articulos.numPiezaPaquete.toString()
@@ -36,6 +43,7 @@ class ArticulosAdapter(
                     .subscribe(object : ResourceObserver<Any>() {
                         override fun onNext(genericResponse: Any) {
                             Toast.makeText(context, "Articulo eliminado correctamente", Toast.LENGTH_SHORT).show()
+                            (context as ArticulosActivity).obtenerArticulos()
                         }
                         override fun onError(e: Throwable) {}
                         override fun onComplete() {}

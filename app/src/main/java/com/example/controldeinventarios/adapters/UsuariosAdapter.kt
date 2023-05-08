@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.controldeinventarios.activities.EditarUsuarioActivity
+import com.example.controldeinventarios.activities.UsuarioActivity
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ViewholderUsuariosBinding
 import com.example.controldeinventarios.models.Usuarios
@@ -49,6 +50,7 @@ class UsuariosAdapter(
             .subscribe(object : ResourceObserver<Any>() {
                 override fun onNext(genericResponse: Any) {
                     Toast.makeText(context, "Usuario eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    (context as UsuarioActivity).obtenerUsuarios()
                 }
                 override fun onError(e: Throwable) {}
                 override fun onComplete() {}

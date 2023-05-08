@@ -11,6 +11,7 @@ import com.example.controldeinventarios.R
 import com.example.controldeinventarios.api
 import com.example.controldeinventarios.databinding.ActivityAgregarMermaBinding
 import com.example.controldeinventarios.models.Articulos
+import com.example.controldeinventarios.models.GenericResponse
 import com.example.controldeinventarios.preferencesHelper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -106,9 +107,17 @@ class AgregarMermaActivity : AppCompatActivity() {
                     )
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.newThread())
-                        .subscribe(object : ResourceObserver<Any>() {
-                            override fun onNext(genericResponse: Any) {
-                                Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                        .subscribe(object : ResourceObserver<GenericResponse>() {
+                            override fun onNext(genericResponse: GenericResponse) {
+                                if(genericResponse.result == "ok") {
+                                    aId = 0L
+                                    binding.eCantidad.setText("")
+                                    binding.sArticulos.setSelection(0)
+                                    binding.sTipoMerma.setSelection(0)
+                                    Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                                }else{
+                                    Toast.makeText(this@AgregarMermaActivity, "La cantidad de articulos proporcionada es mayor contra la que se tiene en stock.", Toast.LENGTH_LONG).show()
+                                }
                             }
                             override fun onError(e: Throwable) {}
                             override fun onComplete() {}
@@ -133,9 +142,20 @@ class AgregarMermaActivity : AppCompatActivity() {
                         )
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeOn(Schedulers.newThread())
-                            .subscribe(object : ResourceObserver<Any>() {
-                                override fun onNext(genericResponse: Any) {
-                                    Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                            .subscribe(object : ResourceObserver<GenericResponse>() {
+                                override fun onNext(genericResponse: GenericResponse) {
+                                    if(genericResponse.result == "ok") {
+                                        aId = 0L
+                                        binding.eCantidad.setText("")
+                                        spinner.setSelection(0)
+                                        binding.sTipoDano.setSelection(0)
+                                        binding.sCambioProveedor.setSelection(0)
+                                        aIdCambio = 0L
+                                        binding.eCantidadCambio.setText("")
+                                        Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        Toast.makeText(this@AgregarMermaActivity, "La cantidad de articulos proporcionada es mayor contra la que se tiene en stock.", Toast.LENGTH_LONG).show()
+                                    }
                                 }
                                 override fun onError(e: Throwable) {}
                                 override fun onComplete() {}
@@ -157,9 +177,18 @@ class AgregarMermaActivity : AppCompatActivity() {
                         )
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeOn(Schedulers.newThread())
-                            .subscribe(object : ResourceObserver<Any>() {
-                                override fun onNext(genericResponse: Any) {
-                                    Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                            .subscribe(object : ResourceObserver<GenericResponse>() {
+                                override fun onNext(genericResponse: GenericResponse) {
+                                    if(genericResponse.result == "ok") {
+                                        aId = 0L
+                                        binding.eCantidad.setText("")
+                                        spinner.setSelection(0)
+                                        binding.sTipoDano.setSelection(0)
+                                        binding.sCambioProveedor.setSelection(0)
+                                        Toast.makeText(this@AgregarMermaActivity, "Merma agregada correctamente", Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        Toast.makeText(this@AgregarMermaActivity, "La cantidad de articulos proporcionada es mayor contra la que se tiene en stock.", Toast.LENGTH_LONG).show()
+                                    }
                                 }
                                 override fun onError(e: Throwable) {}
                                 override fun onComplete() {}
