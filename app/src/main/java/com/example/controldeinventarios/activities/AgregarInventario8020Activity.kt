@@ -40,7 +40,7 @@ class AgregarInventario8020Activity : AppCompatActivity() {
                 api.agregarInventario(
                     "Bearer "+ preferencesHelper.tokenApi!!,
                     jsonMapper().writeValueAsString(articulosInventario),
-                    1
+                    0
                 )
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.newThread())
