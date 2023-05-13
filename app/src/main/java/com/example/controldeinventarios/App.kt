@@ -47,7 +47,7 @@ class App : Application() {
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("http://192.168.1.28:8019/api/")
+            .baseUrl("http://143.198.152.228/laravel/public/api/")
             .build()
 
         api = retrofit.create(Api::class.java)
